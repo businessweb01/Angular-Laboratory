@@ -1,0 +1,47 @@
+<!-- <div class="prdcts" *ngFor= "let prdcts of product">
+    <div class="innerdiv">
+        {{prdcts.id + ' ' + prdcts.name + ' ' + prdcts.description + ' ' + prdcts.color}}
+         {{prdcts.id}}
+
+        <div class="color" *ngFor="let kulay of prdcts.color">
+            {{kulay}}
+        </div>
+    </div>
+</div> -->
+
+<div class="product-container">
+    <div class="product-items" *ngFor="let prod of product; let i = index">
+        <img src="{{prod.imgsrc}}" alt="Product Image">
+        <h2>{{prod.name}}</h2>
+        <p class="description">{{prod.description}}</p>
+        <p class="price">&#8369; {{prod.price}}</p>
+        <p [ngClass]="{'in-stock': prod.availability, 'out-of-stock': !prod.availability}">
+            {{ prod.availability ? 'In Stock' : 'Out of Stock' }}
+        </p>
+        <div class="prod-settings">
+            <div class="color">
+                <label for="color">Color</label>
+                <select id="color" (change)="onColorChange($event, prod)">
+                    <option *ngFor="let color of prod.color" [value]="color">{{color}}</option>
+                </select>
+            </div>
+            <div class="size">
+                <label for="size">Size</label>
+                <select id="size">
+                    <option *ngFor="let size of prod.size" [value]="size">{{size}}</option>
+                </select>
+            </div>
+            <div class="quantity">
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" id="quantity" step="1" min="0" max="10">
+            </div>
+        </div>
+        <div class="custom-select">
+            <div class="selected-option">
+                <span [ngStyle]="{'background-color': prod.selectedColor}" class="color-box"></span>
+                {{ prod.selectedColor || 'Select a color' }}
+            </div>
+        </div>
+        <button type="button" class="add-to-cart">Add to Cart</button>    
+    </div>
+</div>
